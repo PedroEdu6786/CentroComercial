@@ -10,38 +10,28 @@ package Patrones.Decorator;
  * @author rafa_
  */
 public class ArticuloDecorator implements Vendible {
-    public Articulo articuloResultado;
+    public Vendible vendible;
 
-    public ArticuloDecorator() {
-        articuloResultado = new Articulo("", "", "", 0);
+    public ArticuloDecorator(Vendible vendible) {
+        setVendible(vendible);
     }
     
-    public void addArticulo(Articulo articulo) {
-        if (articuloResultado.getNombre().equals("")) {
-            articuloResultado.setNombre(articulo.getNombre());
-        } else {
-            articuloResultado.setNombre(articuloResultado.getNombre() + " + " + articulo.getNombre());
-        }
-        
-        articuloResultado.setPrecio(articuloResultado.getPrecio() + articulo.getPrecio());
+    public void setVendible(Vendible vendible) {
+        this.vendible = vendible;
     }
     
-    public void setArticuloResultado(Articulo articuloResultado) {
-        this.articuloResultado = articuloResultado;
-    }
-    
-    public Articulo getArticuloResultado() {
-        return articuloResultado;
+    public Vendible getVendible() {
+        return vendible;
     }
     
     @Override
     public String getNombre() {
-        return "";
+        return vendible.getNombre();
     }
     
     @Override
     public double getPrecio() {
-        return 0;
+        return vendible.getPrecio();
     }
     
 }
