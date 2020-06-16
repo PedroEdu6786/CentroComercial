@@ -6,6 +6,7 @@
 package Model.Cliente;
 
 import Model.Tienda.Tienda;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,4 +16,9 @@ public class Cliente {
     String nombre;
     //falta CarritoCompras carritoCompras;
     Tienda tiendaActual;
+    ArrayList<String> notificaciones = new ArrayList<>();
+    
+    public void addNotificacion(String notificacion) {
+        notificaciones.add(notificacion);
+    }
 }
