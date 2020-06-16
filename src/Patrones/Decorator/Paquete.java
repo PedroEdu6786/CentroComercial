@@ -38,16 +38,10 @@ public class Paquete extends ArticuloDecorator {
         this.articuloAgregado = articuloAgregado;
     }
 
-    /**
-     * @return the descuento
-     */
     public double getDescuento() {
         return descuento;
     }
 
-    /**
-     * @param descuento the descuento to set
-     */
     public void setDescuento(double descuento) {
         this.descuento = descuento;
     }

@@ -10,5 +10,5 @@ package Patrones.Observer;
  * @author rafa_
  */
 public interface Observadores {
-    
+    public void update(String tiendaActualizada);
 }

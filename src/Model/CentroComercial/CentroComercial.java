@@ -10,5 +10,5 @@ package Model.CentroComercial;
  * @author rafa_
  */
 public class CentroComercial {
-    
+    public String nombre;
 }

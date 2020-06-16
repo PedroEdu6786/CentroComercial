@@ -21,7 +21,7 @@ public class ConArticulos implements Estados{
 
     @Override
     public void addArticulo(ArticulosRepository repository, Articulo articulo) {
-        repository.removeArticulo(articulo);
+        repository.addArticulo(articulo);
     }
     
 }

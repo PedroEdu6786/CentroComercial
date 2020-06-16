@@ -24,7 +24,6 @@ public class Test {
         paquete = new Paquete(paquete, new Articulo("Air Force Three", "NIKE", "NIKEGRANDE", 70), .25);
         System.out.println("Paquete: " + paquete.getNombre());
         System.out.println("Precio con descuento: " + paquete.getPrecio());
-        
     }
     
 }
