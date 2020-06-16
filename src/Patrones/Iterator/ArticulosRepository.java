@@ -19,16 +19,16 @@ public class ArticulosRepository implements Container {
         this.counter = 0;
     }
     
-    public void addArticulo(Articulo cliente) {
-        articulos[counter] = cliente;
+    public void addArticulo(Articulo articulo) {
+        articulos[counter] = articulo;
         counter++;
     }
     
-    public void removeArticulo(Articulo cliente) {
+    public void removeArticulo(Articulo articulo) {
         boolean flag = false;
         int i = 0;
         while(i < articulos.length && articulos[i + 1] != null) {
-            if (articulos[i].equals(cliente)) {
+            if (articulos[i].equals(articulo)) {
                 flag = true;
             }
             if (flag) {
