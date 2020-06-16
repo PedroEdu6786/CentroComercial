@@ -12,11 +12,12 @@ import Patrones.Decorator.Articulo;
  * @author User
  */
 public class ArticulosRepository implements Container {
-    private Articulo[] articulos = new Articulo[100];
+    private Articulo[] articulos;
     private int counter;
     
-    public ArticulosRepository() {
+    public ArticulosRepository(int cantidadMaximaArticulos) {
         this.counter = 0;
+        articulos = new Articulo[cantidadMaximaArticulos];
     }
     
     public void addArticulo(Articulo articulo) {
