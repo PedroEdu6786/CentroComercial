@@ -46,4 +46,7 @@ public abstract class Tienda {
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
     }
+    
+    public abstract void entrar(Cliente cliente);
+    public abstract void salir(Cliente cliente);
 }
