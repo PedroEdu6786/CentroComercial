@@ -11,7 +11,7 @@ package Model.Tienda;
  */
 public class Zapateria extends Tienda {
     
-    public Zapateria(String nombre, int cantidadArticulos) {
-        super(nombre, "ZAPATERIA", cantidadArticulos);
+    public Zapateria(String nombre, int cantidadMaximaArticulos) {
+        super(nombre, "ZAPATERIA", cantidadMaximaArticulos);
     }
 }

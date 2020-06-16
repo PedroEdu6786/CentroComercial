@@ -11,8 +11,8 @@ package Model.Tienda;
  */
 public class Libreria extends Tienda{
     
-    public Libreria(String nombre, int cantidadArticulos) {
-        super(nombre, "LIBRERIA", cantidadArticulos);
+    public Libreria(String nombre, int cantidadMaximaArticulos) {
+        super(nombre, "LIBRERIA", cantidadMaximaArticulos);
     }
     
 }
