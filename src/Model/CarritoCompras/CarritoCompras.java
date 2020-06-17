@@ -14,6 +14,7 @@ import Excepciones.PaqueteNoEncontradoException;
 import Patrones.Decorator.Articulo;
 import Patrones.Decorator.Paquete;
 import Patrones.Estado.Estados;
+import Patrones.Estado.Vacio;
 import Patrones.Iterator.ArticulosRepository;
 import Patrones.Iterator.Iterator;
 import Patrones.Iterator.PaquetesRepository;
@@ -31,6 +32,7 @@ public class CarritoCompras {
     public CarritoCompras() {
         articulos = new ArticulosRepository(getCapacidad());
         paquetes = new PaquetesRepository(getCapacidad());
+        estadoActual = new Vacio();
     }
     
     public Iterator getArticulosIterator() {
