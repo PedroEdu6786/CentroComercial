@@ -1,8 +1,16 @@
 package View;
 
+import Excepciones.ArticuloNoEncontradoException;
+import Excepciones.ListaArticulosVaciaException;
+import Excepciones.ListaPaquetesVaciaException;
+import Excepciones.PaqueteNoEncontradoException;
 import Model.CarritoCompras.CarritoCompras;
 import Model.CentroComercial.CentroComercial;
 import Model.Cliente.Cliente;
+import Patrones.Decorator.Articulo;
+import Patrones.Decorator.Paquete;
+import Patrones.Iterator.Iterator;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -10,27 +18,34 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author VICTOR
  */
-public class CarritoCompraView extends javax.swing.JFrame {
+public class CarritoComprasView extends javax.swing.JFrame {
 
-    private CarritoCompras carritoCompras;
     private Cliente cliente;
     private CentroComercialView centroComercialView;
-    
+
     /**
      * Creates new form MenuPrincipal
      */
-    public CarritoCompraView(CarritoCompras carritoCompras, Cliente cliente, CentroComercialView centroComercialView) {
-        this.carritoCompras = carritoCompras;
+    public CarritoComprasView(Cliente cliente, CentroComercialView centroComercialView) {
         this.cliente = cliente;
         this.centroComercialView = centroComercialView;
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
+
+        //Inicialización de los elementos de la vista.
+        eliminarArticuloButton.setEnabled(false);
+        eliminarPaqueteButton.setEnabled(false);
+
+        mostrarCantidadProductos();
+        mostrarTotalAPagar();
+        mostrarArticulos();
+        mostrarPaquetes();
+
     }
 
     /**
@@ -42,191 +57,392 @@ public class CarritoCompraView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        articulosTable = new javax.swing.JTable();
+        eliminarPaqueteButton = new javax.swing.JButton();
+        contenidoLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        paquetesTable = new javax.swing.JTable();
+        eliminarArticuloButton = new javax.swing.JButton();
+        resumenPedidoLabel = new javax.swing.JLabel();
+        cantidadArticulosLabel = new javax.swing.JLabel();
+        totalAPagarLabel = new javax.swing.JLabel();
+        regresarButton = new javax.swing.JButton();
+        realizarPagoButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(252, 86, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        articulosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tiendas"
+                "Articulo", "Tienda", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        articulosTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                articulosTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(articulosTable);
 
-        jLabel3.setBackground(new java.awt.Color(252, 86, 50));
-        jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jLabel3.setText("Carrito de Compras");
-
-        jButton1.setText("Solicitar Carrito de Compras");
-
-        jButton2.setText("Caja");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        eliminarPaqueteButton.setText("Eliminar de carrito");
+        eliminarPaqueteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                eliminarPaqueteButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Ingresar a Tienda");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        contenidoLabel.setBackground(new java.awt.Color(252, 86, 50));
+        contenidoLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        contenidoLabel.setText("Contenido");
+
+        paquetesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Paquete", "Tienda", "Precio"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        paquetesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paquetesTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(paquetesTable);
+
+        eliminarArticuloButton.setText("Eliminar de carrito");
+        eliminarArticuloButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarArticuloButtonActionPerformed(evt);
+            }
+        });
+
+        resumenPedidoLabel.setBackground(new java.awt.Color(252, 86, 50));
+        resumenPedidoLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        resumenPedidoLabel.setText("Resumen del pedido");
+
+        cantidadArticulosLabel.setBackground(new java.awt.Color(252, 86, 50));
+        cantidadArticulosLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        cantidadArticulosLabel.setText("Cantidad de artículos:");
+
+        totalAPagarLabel.setBackground(new java.awt.Color(252, 86, 50));
+        totalAPagarLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        totalAPagarLabel.setText("Total a pagar: $");
+
+        regresarButton.setText("Regresar");
+        regresarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarButtonActionPerformed(evt);
+            }
+        });
+
+        realizarPagoButton.setText("Realizar pago");
+        realizarPagoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarPagoButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(eliminarPaqueteButton)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(contenidoLabel)
+                                .addComponent(resumenPedidoLabel)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(regresarButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(realizarPagoButton)))
+                            .addComponent(eliminarArticuloButton)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(totalAPagarLabel)
+                            .addComponent(cantidadArticulosLabel))))
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(contenidoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(eliminarArticuloButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(eliminarPaqueteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resumenPedidoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cantidadArticulosLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totalAPagarLabel)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(regresarButton)
+                    .addComponent(realizarPagoButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(115, 115, 115)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3))
-                        .addGap(343, 343, 343))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jButton3)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jButton1)
-                        .addGap(13, 13, 13)
-                        .addComponent(jButton2)
-                        .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(58, 58, 58))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
-        jLabel1.setBackground(new java.awt.Color(252, 86, 50));
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CentroFMAT");
+        jLabel3.setBackground(new java.awt.Color(252, 86, 50));
+        jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        jLabel3.setText("Carrito de Compras");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(234, 234, 234)
-                .addComponent(jLabel1)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(217, 217, 217))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 670, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void eliminarPaqueteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPaqueteButtonActionPerformed
+        Iterator paquetesIterator = cliente.getCarritoCompras().getPaquetesIterator();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (selectedRowIndex != -1) {
-            
+        int counter = 0;
+        while (paquetesIterator.hasNext() && counter <= paqueteSeleccionadoIndex) {
+            Paquete paquete = (Paquete) paquetesIterator.next();
+            if (counter == paqueteSeleccionadoIndex) {
+                try {
+                    cliente.getCarritoCompras().removePaquete(paquete);
+                } catch (ListaPaquetesVaciaException | PaqueteNoEncontradoException ex) {
+                    JOptionPane.showMessageDialog(null, "El carrito está vacío o el paquete no se encuentra en él.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
+            }
+            counter++;
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        this.selectedRowIndex = jTable1.getSelectedRow();
-    }//GEN-LAST:event_jTable1MouseClicked
-  
-    private int selectedRowIndex = -1;
+        mostrarCantidadProductos();
+        mostrarTotalAPagar();
+        mostrarPaquetes();
+        eliminarPaqueteButton.setEnabled(false);
+        paqueteSeleccionadoIndex = -1;
+    }//GEN-LAST:event_eliminarPaqueteButtonActionPerformed
+
+    private void articulosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_articulosTableMouseClicked
+        articuloSeleccionadoIndex = articulosTable.getSelectedRow();
+        eliminarArticuloButton.setEnabled(true);
+    }//GEN-LAST:event_articulosTableMouseClicked
+
+    private void paquetesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paquetesTableMouseClicked
+        paqueteSeleccionadoIndex = paquetesTable.getSelectedRow();
+        eliminarPaqueteButton.setEnabled(true);
+    }//GEN-LAST:event_paquetesTableMouseClicked
+
+    private void eliminarArticuloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarArticuloButtonActionPerformed
+        Iterator articulosIterator = cliente.getCarritoCompras().getArticulosIterator();
+
+        int counter = 0;
+        while (articulosIterator.hasNext() && counter <= articuloSeleccionadoIndex) {
+            Articulo articulo = (Articulo) articulosIterator.next();
+            if (counter == articuloSeleccionadoIndex) {
+                try {
+                    cliente.getCarritoCompras().removeArticulo(articulo);
+                } catch (ListaArticulosVaciaException | ArticuloNoEncontradoException ex) {
+                    JOptionPane.showMessageDialog(null, "El carrito está vacío o el artículo no se encuentra en él.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
+            }
+            counter++;
+        }
+
+        mostrarCantidadProductos();
+        mostrarTotalAPagar();
+        mostrarArticulos();
+        eliminarArticuloButton.setEnabled(false);
+        articuloSeleccionadoIndex = -1;
+    }//GEN-LAST:event_eliminarArticuloButtonActionPerformed
+
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
+        dispose();
+        centroComercialView.setVisible(true);
+    }//GEN-LAST:event_regresarButtonActionPerformed
+
+    private void realizarPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarPagoButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_realizarPagoButtonActionPerformed
+
+    public void mostrarCantidadProductos() {
+        int cantidadProductos = cliente.getCarritoCompras().getArticulos().size() + cliente.getCarritoCompras().getPaquetes().size();
+        cantidadArticulosLabel.setText("Cantidad de productos: " + cantidadProductos);
+        if (cantidadProductos > 0) {
+            realizarPagoButton.setEnabled(true);
+        } else {
+            realizarPagoButton.setEnabled(false);
+        }
+    }
+    
+    public void mostrarTotalAPagar() {
+        double totalAPagar = 0;
+        Iterator iterator = cliente.getCarritoCompras().getArticulosIterator();
+
+        while (iterator.hasNext()) {
+            Articulo articulo = (Articulo) iterator.next();
+            totalAPagar += articulo.getPrecio();
+        }
+        
+        iterator = cliente.getCarritoCompras().getPaquetesIterator();
+        while (iterator.hasNext()) {
+            Paquete paquete = (Paquete) iterator.next();
+            totalAPagar += paquete.getPrecio();
+        }
+        
+        totalAPagarLabel.setText("Total a pagar: $" + totalAPagar);
+    }
+    
+    public void mostrarArticulos() {
+        String tabla[][] = new String[cliente.getCarritoCompras().getArticulos().size()][3];
+
+        Iterator articulosIterator = cliente.getCarritoCompras().getArticulosIterator();
+        int i = 0;
+        while (articulosIterator.hasNext()) {
+            Articulo articulo = (Articulo) articulosIterator.next();
+            tabla[i][0] = articulo.getNombre();
+            tabla[i][1] = articulo.getIdentificadorTienda();
+            tabla[i][2] = "$" + articulo.getPrecio();
+            i++;
+        }
+
+        articulosTable.setModel(new javax.swing.table.DefaultTableModel(
+                tabla,
+                new String[]{
+                    "Articulo", "Tienda", "Precio"}
+        ));
+    }
+
+    public void mostrarPaquetes() {
+        String tabla[][] = new String[cliente.getCarritoCompras().getPaquetes().size()][3];
+
+        Iterator paquetesIterator = cliente.getCarritoCompras().getPaquetesIterator();
+        int i = 0;
+        while (paquetesIterator.hasNext()) {
+            Paquete paquete = (Paquete) paquetesIterator.next();
+            tabla[i][0] = paquete.getNombre();
+            tabla[i][1] = paquete.getIdentificadorTienda();
+            tabla[i][2] = "$" + paquete.getPrecio();
+            i++;
+        }
+
+        paquetesTable.setModel(new javax.swing.table.DefaultTableModel(
+                tabla,
+                new String[]{
+                    "Paquete", "Tienda", "Precio"}
+        ));
+    }
+
+    private int articuloSeleccionadoIndex = -1;
+    private int paqueteSeleccionadoIndex = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JTable articulosTable;
+    public javax.swing.JLabel cantidadArticulosLabel;
+    public javax.swing.JLabel contenidoLabel;
+    public javax.swing.JButton eliminarArticuloButton;
+    public javax.swing.JButton eliminarPaqueteButton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JTable paquetesTable;
+    public javax.swing.JButton realizarPagoButton;
+    public javax.swing.JButton regresarButton;
+    public javax.swing.JLabel resumenPedidoLabel;
+    public javax.swing.JLabel totalAPagarLabel;
     // End of variables declaration//GEN-END:variables
 }
