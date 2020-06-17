@@ -20,6 +20,7 @@ public class Cliente {
     
     public Cliente(String nombre) {
         this.nombre = nombre;
+        tiendaActual = null;
     }
     
     public String getNombre() {
@@ -28,6 +29,10 @@ public class Cliente {
     
     public void setTiendaActual(Tienda tiendaActual) {
         this.tiendaActual = tiendaActual;
+    }
+    
+    public Tienda getTiendaActual() {
+        return tiendaActual;
     }
     
     public void addNotificacion(String notificacion) {

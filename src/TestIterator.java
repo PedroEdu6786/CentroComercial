@@ -1,7 +1,12 @@
 
 import Model.Cliente.Cliente;
+import Model.Tienda.Libreria;
+import Model.Tienda.Tienda;
+import Patrones.AbstractFactory.FactorySucursal;
+import Patrones.AbstractFactory.FactorySucursalGrande;
 import Patrones.Iterator.ClientesRepository;
 import Patrones.Iterator.Iterator;
+import Patrones.Singleton.LibreriaGrande;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,12 +27,26 @@ public class TestIterator {
         clientes.addCliente(new Cliente("Rafa2"));
         clientes.addCliente(new Cliente("Edgar2"));
         
+        FactorySucursal factory = new FactorySucursalGrande();
+        Libreria libreriaGrande = factory.createLibreria();
+        
+        libreriaGrande.setNombre("Juanes");
         
         Iterator iterator = clientes.getIterator();
         
         while(iterator.hasNext()) {
             Cliente cliente = (Cliente) iterator.next();
-            System.out.println(cliente.getNombre());
+            System.out.println("Cliente: " + cliente.getNombre() + cliente.getTiendaActual());
+            cliente.setTiendaActual(libreriaGrande);
         }
+        
+        iterator = clientes.getIterator();
+        
+        while(iterator.hasNext()) {
+            Cliente cliente = (Cliente) iterator.next();
+            System.out.println("Cliente: " + cliente.getNombre() + cliente.getTiendaActual());
+        }
+        
+        
     }
 }
