@@ -29,7 +29,7 @@ public class Lleno implements Estados {
 
     @Override
     public void addArticulo(CarritoCompras carritoCompras, Articulo articulo) throws ListaArticulosLlenaException  {
-        
+        throw new ListaArticulosLlenaException();
     }
 
     @Override

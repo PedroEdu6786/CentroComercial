@@ -1,16 +1,23 @@
 package View;
 
-import Model.CentroComercial.CentroComercial;
+import Excepciones.ArticuloNoEncontradoException;
+import Excepciones.ListaArticulosLlenaException;
+import Excepciones.ListaArticulosVaciaException;
+import Excepciones.ListaPaquetesLlenaException;
+import Excepciones.ListaPaquetesVaciaException;
+import Excepciones.PaqueteNoEncontradoException;
 import Model.Cliente.Cliente;
 import Model.Tienda.Tienda;
-import javax.swing.table.DefaultTableModel;
+import Patrones.Decorator.Articulo;
+import Patrones.Decorator.Paquete;
+import Patrones.Iterator.Iterator;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author VICTOR
@@ -20,7 +27,7 @@ public class TiendaView extends javax.swing.JFrame {
     private Tienda tienda;
     private Cliente cliente;
     private CentroComercialView centroComercialView;
-    
+
     /**
      * Creates new form MenuPrincipal
      */
@@ -28,9 +35,22 @@ public class TiendaView extends javax.swing.JFrame {
         this.tienda = tienda;
         this.cliente = cliente;
         this.centroComercialView = centroComercialView;
+
+        //Realización de la entrada del cliente a la tienda.
+        tienda.entrar(cliente);
         
         initComponents();
         this.setLocationRelativeTo(null);
+
+        //Inicialización de los elementos de la vista.
+        nombreTiendaLabel.setText(tienda.getNombre());
+        añadirArticuloButton.setEnabled(false);
+        eliminarArticuloButton.setEnabled(false);
+        añadirPaqueteButton.setEnabled(false);
+        eliminarPaqueteButton.setEnabled(false);
+
+        mostrarArticulos();
+        mostrarPaquetes();
     }
 
     /**
@@ -46,7 +66,7 @@ public class TiendaView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        articulosTable = new javax.swing.JTable();
         regresarButton = new javax.swing.JButton();
         nombreTiendaLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -61,7 +81,7 @@ public class TiendaView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(252, 86, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        articulosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -84,12 +104,19 @@ public class TiendaView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        articulosTable.getTableHeader().setReorderingAllowed(false);
+        articulosTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                articulosTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(articulosTable);
+        if (articulosTable.getColumnModel().getColumnCount() > 0) {
+            articulosTable.getColumnModel().getColumn(0).setResizable(false);
+            articulosTable.getColumnModel().getColumn(0).setPreferredWidth(550);
+            articulosTable.getColumnModel().getColumn(1).setResizable(false);
+            articulosTable.getColumnModel().getColumn(1).setPreferredWidth(77);
+        }
 
         regresarButton.setText("Regresar");
         regresarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +127,7 @@ public class TiendaView extends javax.swing.JFrame {
 
         nombreTiendaLabel.setBackground(new java.awt.Color(252, 86, 50));
         nombreTiendaLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
+        nombreTiendaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreTiendaLabel.setText("CentroFMAT");
 
         paquetesTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,12 +153,19 @@ public class TiendaView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        paquetesTable.getTableHeader().setReorderingAllowed(false);
         paquetesTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 paquetesTableMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(paquetesTable);
+        if (paquetesTable.getColumnModel().getColumnCount() > 0) {
+            paquetesTable.getColumnModel().getColumn(0).setResizable(false);
+            paquetesTable.getColumnModel().getColumn(0).setPreferredWidth(550);
+            paquetesTable.getColumnModel().getColumn(1).setResizable(false);
+            paquetesTable.getColumnModel().getColumn(1).setPreferredWidth(77);
+        }
 
         instruccionesLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         instruccionesLabel.setText("Seleccione una articulo/paquete y presione el botón \"Añadir a carrito\" o \"Eliminar de carrito\":");
@@ -170,13 +205,9 @@ public class TiendaView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addComponent(nombreTiendaLabel))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(instruccionesLabel)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(añadirArticuloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,7 +220,11 @@ public class TiendaView extends javax.swing.JFrame {
                                         .addComponent(añadirPaqueteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(eliminarPaqueteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(instruccionesLabel)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(nombreTiendaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -267,40 +302,138 @@ public class TiendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
+        tienda.salir(cliente);
         dispose();
         centroComercialView.setVisible(true);
     }//GEN-LAST:event_regresarButtonActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        this.selectedRowIndex = jTable1.getSelectedRow();
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void articulosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_articulosTableMouseClicked
+        articuloSeleccionadoIndex = articulosTable.getSelectedRow();
+        añadirArticuloButton.setEnabled(true);
+        eliminarArticuloButton.setEnabled(true);
+    }//GEN-LAST:event_articulosTableMouseClicked
 
     private void paquetesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paquetesTableMouseClicked
-        // TODO add your handling code here:
+        paqueteSeleccionadoIndex = paquetesTable.getSelectedRow();
+        añadirPaqueteButton.setEnabled(true);
+        eliminarPaqueteButton.setEnabled(true);
     }//GEN-LAST:event_paquetesTableMouseClicked
 
     private void añadirPaqueteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPaqueteButtonActionPerformed
-        // TODO add your handling code here:
+        Iterator paquetesIterator = tienda.getPaquetesIterator();
+
+        int counter = 0;
+        while (paquetesIterator.hasNext() && counter <= paqueteSeleccionadoIndex) {
+            Paquete paquete = (Paquete) paquetesIterator.next();
+            if (counter == paqueteSeleccionadoIndex) {
+                try {
+                    tienda.addPaqueteACarrito(cliente.getCarritoCompras(), paquete);
+                } catch (ListaPaquetesLlenaException ex) {
+                    JOptionPane.showMessageDialog(null, "El carrito de compras está lleno (capacidad máxima: 25 productos).", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
+            }
+            counter++;
+        }
     }//GEN-LAST:event_añadirPaqueteButtonActionPerformed
 
     private void eliminarPaqueteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPaqueteButtonActionPerformed
-        // TODO add your handling code here:
+        Iterator paquetesIterator = tienda.getPaquetesIterator();
+
+        int counter = 0;
+        while (paquetesIterator.hasNext() && counter <= paqueteSeleccionadoIndex) {
+            Paquete paquete = (Paquete) paquetesIterator.next();
+            if (counter == paqueteSeleccionadoIndex) {
+                try {
+                    tienda.removePaqueteDeCarrito(cliente.getCarritoCompras(), paquete);
+                } catch (ListaPaquetesVaciaException | PaqueteNoEncontradoException ex) {
+                    JOptionPane.showMessageDialog(null, "El carrito está vacío o el paquete no se encuentra en él.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
+            }
+            counter++;
+        }
     }//GEN-LAST:event_eliminarPaqueteButtonActionPerformed
 
     private void eliminarArticuloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarArticuloButtonActionPerformed
-        // TODO add your handling code here:
+        Iterator articulosIterator = tienda.getArticulosIterator();
+
+        int counter = 0;
+        while (articulosIterator.hasNext() && counter <= articuloSeleccionadoIndex) {
+            Articulo articulo = (Articulo) articulosIterator.next();
+            if (counter == articuloSeleccionadoIndex) {
+                try {
+                    tienda.removeArticuloDeCarrito(cliente.getCarritoCompras(), articulo);
+                } catch (ListaArticulosVaciaException | ArticuloNoEncontradoException ex) {
+                    JOptionPane.showMessageDialog(null, "El carrito está vacío o el artículo no se encuentra en él.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
+            }
+            counter++;
+        }
     }//GEN-LAST:event_eliminarArticuloButtonActionPerformed
 
     private void añadirArticuloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirArticuloButtonActionPerformed
-        // TODO add your handling code here:
+        Iterator articulosIterator = tienda.getArticulosIterator();
+
+        int counter = 0;
+        while (articulosIterator.hasNext() && counter <= articuloSeleccionadoIndex) {
+            Articulo articulo = (Articulo) articulosIterator.next();
+            if (counter == articuloSeleccionadoIndex) {
+                try {
+                    tienda.addArticuloACarrito(cliente.getCarritoCompras(), articulo);
+                } catch (ListaArticulosLlenaException ex) {
+                    JOptionPane.showMessageDialog(null, "El carrito de compras está lleno (capacidad máxima: 25 productos).", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
+            }
+            counter++;
+        }
+
     }//GEN-LAST:event_añadirArticuloButtonActionPerformed
 
-    
-    
-    private int selectedRowIndex = -1;
+    public void mostrarArticulos() {
+        String tabla[][] = new String[tienda.getArticulos().size()][2];
+
+        Iterator articulosIterator = tienda.getArticulosIterator();
+        int i = 0;
+        while (articulosIterator.hasNext()) {
+            Articulo articulo = (Articulo) articulosIterator.next();
+            tabla[i][0] = articulo.getNombre();
+            tabla[i][1] = "$" + articulo.getPrecio();
+            i++;
+        }
+
+        articulosTable.setModel(new javax.swing.table.DefaultTableModel(
+                tabla,
+                new String[]{
+                    "Articulo", "Precio"}
+        ));
+    }
+
+    public void mostrarPaquetes() {
+        String tabla[][] = new String[tienda.getPaquetes().size()][2];
+
+        Iterator paquetesIterator = tienda.getPaquetesIterator();
+        int i = 0;
+        while (paquetesIterator.hasNext()) {
+            Paquete paquete = (Paquete) paquetesIterator.next();
+            tabla[i][0] = paquete.getNombre();
+            tabla[i][1] = "$" + paquete.getPrecio();
+            i++;
+        }
+
+        paquetesTable.setModel(new javax.swing.table.DefaultTableModel(
+                tabla,
+                new String[]{
+                    "Paquete", "Precio"}
+        ));
+    }
+
+    private int articuloSeleccionadoIndex = -1;
+    private int paqueteSeleccionadoIndex = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable articulosTable;
     public javax.swing.JButton añadirArticuloButton;
     public javax.swing.JButton añadirPaqueteButton;
     public javax.swing.JButton eliminarArticuloButton;
@@ -311,7 +444,6 @@ public class TiendaView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     public javax.swing.JLabel nombreTiendaLabel;
     public javax.swing.JTable paquetesTable;
     public javax.swing.JButton regresarButton;

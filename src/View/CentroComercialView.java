@@ -210,6 +210,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         eliminarCarritoComprasButton = new javax.swing.JButton();
         nombreClienteLabel = new javax.swing.JLabel();
         instruccionesLabel = new javax.swing.JLabel();
+        salirButton = new javax.swing.JButton();
         nombreCentroComercialLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -264,7 +265,7 @@ public class CentroComercialView extends javax.swing.JFrame {
             }
         });
 
-        ingresarTiendaButton.setText("Ingresar a Tienda");
+        ingresarTiendaButton.setText("Ingresar a tienda");
         ingresarTiendaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ingresarTiendaButtonActionPerformed(evt);
@@ -310,6 +311,13 @@ public class CentroComercialView extends javax.swing.JFrame {
         instruccionesLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         instruccionesLabel.setText("Seleccione una tienda y presione el botón \"Ingresar a Tienda\":");
 
+        salirButton.setText("Salir");
+        salirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -335,11 +343,13 @@ public class CentroComercialView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tiendasScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(instruccionesLabel)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(603, 603, 603)
-                                .addComponent(ingresarTiendaButton)))))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(salirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ingresarTiendaButton))
+                                .addComponent(tiendasScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
@@ -365,7 +375,9 @@ public class CentroComercialView extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(tiendasScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ingresarTiendaButton)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ingresarTiendaButton)
+                    .addComponent(salirButton))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -438,21 +450,26 @@ public class CentroComercialView extends javax.swing.JFrame {
     }//GEN-LAST:event_pagarCarritoComprasButtonActionPerformed
 
     private void ingresarTiendaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarTiendaButtonActionPerformed
-        if (selectedRowIndex != -1 && cliente.getCarritoCompras() != null) {
+        if (tiendaSeleccionadaIndex != -1 && cliente.getCarritoCompras() != null) {
             Iterator tiendasIterator = centroComercial.getTiendasIterator();
-            Tienda tienda = null;
+            
             int counter = 0;
-            while (tiendasIterator.hasNext() && counter < selectedRowIndex) {
-                tienda = (Tienda) tiendasIterator.next();
+            while (tiendasIterator.hasNext() && counter <= tiendaSeleccionadaIndex) {
+                Tienda tienda = (Tienda) tiendasIterator.next();
+                if (counter == tiendaSeleccionadaIndex) {
+                    new TiendaView(tienda, cliente, this).setVisible(true);
+                    break;
+                }
+                counter++;
             }
-            new TiendaView(tienda, cliente, this).setVisible(true);
+            
             setVisible(false);
         }
     }//GEN-LAST:event_ingresarTiendaButtonActionPerformed
 
     private void tiendasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tiendasTableMouseClicked
-        selectedRowIndex = tiendasTable.getSelectedRow();
-        if (cliente.getCarritoCompras() != null && selectedRowIndex >= 0) {
+        tiendaSeleccionadaIndex = tiendasTable.getSelectedRow();
+        if (cliente.getCarritoCompras() != null && tiendaSeleccionadaIndex >= 0) {
             ingresarTiendaButton.setEnabled(true);
         } else {
             ingresarTiendaButton.setEnabled(false);
@@ -463,7 +480,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         cliente.setCarritoCompras(centroComercial.getCarrito());
         pagarCarritoComprasButton.setEnabled(true);
         eliminarCarritoComprasButton.setEnabled(true);
-        if (selectedRowIndex >= 0) {
+        if (tiendaSeleccionadaIndex >= 0) {
             ingresarTiendaButton.setEnabled(true);
         } else {
             ingresarTiendaButton.setEnabled(false);
@@ -476,6 +493,10 @@ public class CentroComercialView extends javax.swing.JFrame {
         eliminarCarritoComprasButton.setEnabled(false);
         ingresarTiendaButton.setEnabled(false);
     }//GEN-LAST:event_eliminarCarritoComprasButtonActionPerformed
+
+    private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salirButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -549,7 +570,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         ));
     }
 
-    private int selectedRowIndex = -1;
+    private int tiendaSeleccionadaIndex = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton eliminarCarritoComprasButton;
     public javax.swing.JButton ingresarTiendaButton;
@@ -563,6 +584,7 @@ public class CentroComercialView extends javax.swing.JFrame {
     private javax.swing.JScrollPane notificacionesScrollPane;
     public javax.swing.JTable notificacionesTable;
     public javax.swing.JButton pagarCarritoComprasButton;
+    public javax.swing.JButton salirButton;
     public javax.swing.JButton solicitarCarritoComprasButton;
     private javax.swing.JScrollPane tiendasScrollPane;
     public javax.swing.JTable tiendasTable;

@@ -80,7 +80,7 @@ public abstract class Tienda {
         return clientes.getIterator();
     }
 
-    public Iterator getPaqueteIterator() {
+    public Iterator getPaquetesIterator() {
         return paquetes.getIterator();
     }
 
@@ -109,7 +109,6 @@ public abstract class Tienda {
     }
 
     public void addPaqueteACarrito(CarritoCompras carritoCompras, Paquete paquete) throws ListaPaquetesLlenaException {
-
         carritoCompras.addPaquete(paquete);
     }
 

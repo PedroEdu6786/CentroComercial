@@ -131,11 +131,14 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tiendasScrollPane" min="-2" pref="720" max="-2" attributes="0"/>
                                       <Component id="instruccionesLabel" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="603" max="-2" attributes="0"/>
-                                          <Component id="ingresarTiendaButton" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="salirButton" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="ingresarTiendaButton" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="tiendasScrollPane" min="-2" pref="720" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -170,7 +173,10 @@
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           <Component id="tiendasScrollPane" min="-2" pref="157" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="ingresarTiendaButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ingresarTiendaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="salirButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace pref="32" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -248,7 +254,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="ingresarTiendaButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Ingresar a Tienda"/>
+                    <Property name="text" type="java.lang.String" value="Ingresar a tienda"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ingresarTiendaButtonActionPerformed"/>
@@ -322,6 +328,17 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Seleccione una tienda y presione el bot&#xf3;n &quot;Ingresar a Tienda&quot;:"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="salirButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Salir"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirButtonActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
