@@ -26,16 +26,16 @@ public class PaquetesRepository implements Container{
         maxLength = cantidadMaximaPaquetes;
     }
     
-    public void addPaquete(Paquete paquetes) throws ListaPaquetesLlenaException {
+    public void addPaquete(Paquete paquete) throws ListaPaquetesLlenaException {
         if (counter == maxLength) {
             throw new ListaPaquetesLlenaException("Lista de paquetes llena");
         } else {
-            this.paquetes[counter] = paquetes;
+            paquetes[counter] = paquete;
             counter++;   
         }
     }
     
-    public void removePaquete(Paquete paquetes) throws ListaPaquetesVaciaException, PaqueteNoEncontradoException {
+    public void removePaquete(Paquete paquete) throws ListaPaquetesVaciaException, PaqueteNoEncontradoException {
         
         if (counter == 0) {
             throw new ListaPaquetesVaciaException("Lista de paquetes vacia");
@@ -43,13 +43,15 @@ public class PaquetesRepository implements Container{
             boolean flag = false;
             int i = 0;
 
-            while(i < this.paquetes.length && this.paquetes[i + 1] != null) {
-                if (this.paquetes[i].equals(paquetes)) {
+            while(i < counter) {
+                if (paquetes[i].equals(paquete)) {
                     flag = true;
+                    paquetes[i] = null;
                 }
-                if (flag) {
-                    this.paquetes[i] = this.paquetes[i + 1];
+                if (flag && paquetes[i + 1] != null) {
+                    paquetes[i] = paquetes[i + 1];
                 }
+                i++;
             }
             
             if(!flag) {

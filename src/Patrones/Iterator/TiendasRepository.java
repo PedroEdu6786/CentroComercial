@@ -27,13 +27,15 @@ public class TiendasRepository implements Container {
     public void removeTienda(Tienda tienda) {
         boolean flag = false;
         int i = 0;
-        while(i < tiendas.length && tiendas[i + 1] != null) {
+        while(i < counter) {
             if (tiendas[i].equals(tienda)) {
                 flag = true;
+                tiendas[i] = null;
             }
-            if (flag) {
+            if (flag && tiendas[i + 1] != null) {
                 tiendas[i] = tiendas[i + 1];
             }
+            i++;
         }
         
         counter--;

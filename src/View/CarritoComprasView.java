@@ -309,6 +309,7 @@ public class CarritoComprasView extends javax.swing.JFrame {
         
         mostrarCantidadProductos();
         mostrarTotalAPagar();
+        mostrarArticulos();
         mostrarPaquetes();
         eliminarPaqueteButton.setEnabled(false);
         paqueteSeleccionadoIndex = -1;

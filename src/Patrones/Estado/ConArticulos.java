@@ -26,6 +26,7 @@ public class ConArticulos implements Estados{
         if (carritoCompras.getArticulos().size() == 1 && carritoCompras.getPaquetes().size() == 0) {
             carritoCompras.setEstadoActual(new Vacio());
         }
+        
         carritoCompras.getArticulos().removeArticulo(articulo);
         
     }

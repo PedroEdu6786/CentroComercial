@@ -28,13 +28,15 @@ public class ClientesRepository implements Container{
     public void removeCliente(Cliente cliente) {
         boolean flag = false;
         int i = 0;
-        while(i < clientes.length && clientes[i + 1] != null) {
+        while(i < counter) {
             if (clientes[i].equals(cliente)) {
                 flag = true;
+                clientes[i] = null;
             }
-            if (flag) {
+            if (flag && clientes[i + 1] != null) {
                 clientes[i] = clientes[i + 1];
             }
+            i++;
         }
         
         counter--;

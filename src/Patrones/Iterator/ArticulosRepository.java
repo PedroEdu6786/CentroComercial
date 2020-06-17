@@ -42,19 +42,21 @@ public class ArticulosRepository implements Container {
             boolean flag = false;
             int i = 0;
 
-            while(i < articulos.length && articulos[i + 1] != null) {
+            while(i < counter) {
                 if (articulos[i].equals(articulo)) {
                     flag = true;
+                    articulos[i] = null;
                 }
-                if (flag) {
+                if (flag && articulos[i + 1] != null) {
                     articulos[i] = articulos[i + 1];
                 }
+                i++;
             }
             
             if(!flag) {
                 throw new ArticuloNoEncontradoException("Articulo no encontrado");
             } else {
-                counter--;
+                this.counter--;
             }
         }
     }
