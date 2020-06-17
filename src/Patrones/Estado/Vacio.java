@@ -5,8 +5,9 @@
  */
 package Patrones.Estado;
 
+import Excepciones.CarritoVacioException;
+import Model.CarritoCompras.CarritoCompras;
 import Patrones.Decorator.Articulo;
-import Patrones.Iterator.ArticulosRepository;
 
 /**
  *
@@ -15,13 +16,14 @@ import Patrones.Iterator.ArticulosRepository;
 public class Vacio implements Estados {
 
     @Override
-    public void removeArticulo(ArticulosRepository repository, Articulo articulo) {
-        System.err.println("El carrito esta vacío");
+    public void removeArticulo(CarritoCompras carritoCompras, Articulo articulo) throws CarritoVacioException {
+        throw new CarritoVacioException();
     }
 
     @Override
-    public void addArticulo(ArticulosRepository repository, Articulo articulo) {
-        repository.addArticulo(articulo);
+    public void addArticulo(CarritoCompras carritoCompras, Articulo articulo) {
+        carritoCompras.getArticulos().addArticulo(articulo);
+        carritoCompras.setEstadoActual(new ConArticulos());
     }
     
 }
