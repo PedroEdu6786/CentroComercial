@@ -5,12 +5,11 @@
  */
 package Model.CarritoCompras;
 
-import Excepciones.CarritoLlenoException;
-import Excepciones.CarritoVacioException;
 import Patrones.Decorator.Articulo;
 import Patrones.Estado.Estados;
 import Patrones.Iterator.ArticulosRepository;
 import Patrones.Iterator.Iterator;
+import Patrones.Iterator.PaquetesRepository;
 
 /**
  *
@@ -19,10 +18,12 @@ import Patrones.Iterator.Iterator;
 public class CarritoCompras {
     private Estados estadoActual;
     private ArticulosRepository articulos;
+    private PaquetesRepository paquetes;
     private final int capacidad = 25;
     
     public CarritoCompras() {
         articulos = new ArticulosRepository(getCapacidad());
+        paquetes = new PaquetesRepository(getCapacidad());
     }
     
     public Iterator getArticulosIterator() {

@@ -5,8 +5,6 @@
  */
 package Model.Tienda;
 
-import Excepciones.CarritoLlenoException;
-import Excepciones.CarritoVacioException;
 import Excepciones.ListaArticulosLlenaException;
 import Excepciones.ListaArticulosVaciaException;
 import Model.CarritoCompras.CarritoCompras;
