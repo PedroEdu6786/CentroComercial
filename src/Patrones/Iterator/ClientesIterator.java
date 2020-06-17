@@ -17,7 +17,7 @@ public class ClientesIterator implements Iterator {
     private int index;
     
     public ClientesIterator(Cliente[] clientes) {
-        this.index = -1;
+        this.index = 0;
         this.clientes = clientes;
     }
     
@@ -32,8 +32,7 @@ public class ClientesIterator implements Iterator {
 
     @Override
     public Object next() {
-        this.index++;
-        return clientes[index];
+        return clientes[index++];
     }
     
 }

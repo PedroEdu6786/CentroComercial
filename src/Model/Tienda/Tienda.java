@@ -9,6 +9,7 @@ import Model.Cliente.Cliente;
 import Patrones.Decorator.Articulo;
 import Patrones.Iterator.ArticulosRepository;
 import Patrones.Iterator.ClientesRepository;
+import Patrones.Iterator.Iterator;
 import Patrones.Iterator.PaquetesRepository;
 import java.util.ArrayList;
 
@@ -19,9 +20,9 @@ import java.util.ArrayList;
 public abstract class Tienda {
     private String nombre;
     private String identificador;
-    ArticulosRepository articulos;
-    ClientesRepository clientes;
-    PaquetesRepository paquetes;
+    private ArticulosRepository articulos;
+    private ClientesRepository clientes;
+    private PaquetesRepository paquetes;
     
     public Tienda(String nombre, String identificador, int cantidadMaximaArticulos) {
         this.nombre = nombre;
@@ -45,6 +46,17 @@ public abstract class Tienda {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
+    }
+    
+    public Iterator getArticulos() {
+        return articulos.getIterator();
+    }
+    
+    public Iterator getClientes() {
+        return clientes.getIterator();
+    }
+    public Iterator getPaquetes() {
+        return paquetes.getIterator();
     }
     
     public abstract void entrar(Cliente cliente);

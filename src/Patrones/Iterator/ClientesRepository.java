@@ -39,6 +39,10 @@ public class ClientesRepository implements Container{
         
         counter--;
     }
+    
+    public int size() {
+        return counter;
+    }
 
     @Override
     public Iterator getIterator() {

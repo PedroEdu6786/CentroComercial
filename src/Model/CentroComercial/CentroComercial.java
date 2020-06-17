@@ -18,9 +18,13 @@ import java.util.Date;
  */
 public class CentroComercial implements Observadores {
 
-    public String nombre;
+    private String nombre;
     //FALTA LISTATIENDAS
-    ClientesRepository clientes;
+    private ClientesRepository clientes;
+    
+    public Iterator getClientes(){
+        return clientes.getIterator();
+    }
 
     @Override
     public void update(String tiendaActualizada) {

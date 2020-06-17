@@ -17,7 +17,7 @@ public class ArticulosIterator implements Iterator {
     private int index;
     
     public ArticulosIterator(Articulo[] articulos) {
-        this.index = -1;
+        this.index = 0;
         this.articulos = articulos;
     }
     
@@ -32,8 +32,7 @@ public class ArticulosIterator implements Iterator {
 
     @Override
     public Object next() {
-        this.index++;
-        return articulos[index];
+        return articulos[index++];
     }
     
 }

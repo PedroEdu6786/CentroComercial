@@ -5,20 +5,34 @@
  */
 package Patrones.Iterator;
 
+import Patrones.Decorator.Paquete;
+
 /**
  *
  * @author User
  */
 public class PaquetesIterator implements Iterator {
 
+    private Paquete[] paquetes;
+    private int index;
+    
+    public PaquetesIterator(Paquete[] paquetes) {
+        this.index = 0;
+        this.paquetes = paquetes;
+    }
+    
     @Override
     public boolean hasNext() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (index < paquetes.length && paquetes[index] != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public Object next() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return paquetes[index++];
     }
     
 }

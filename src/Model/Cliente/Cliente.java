@@ -13,10 +13,22 @@ import java.util.ArrayList;
  * @author rafa_
  */
 public class Cliente {
-    String nombre;
+    private String nombre;
     //falta CarritoCompras carritoCompras;
-    Tienda tiendaActual;
-    ArrayList<String> notificaciones = new ArrayList<>();
+    private Tienda tiendaActual;
+    private ArrayList<String> notificaciones = new ArrayList<>();
+    
+    public Cliente(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public void setTiendaActual(Tienda tiendaActual) {
+        this.tiendaActual = tiendaActual;
+    }
     
     public void addNotificacion(String notificacion) {
         notificaciones.add(notificacion);

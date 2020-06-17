@@ -39,6 +39,10 @@ public class ArticulosRepository implements Container {
         
         counter--;
     }
+    
+    public int size() {
+        return counter;
+    }
 
     @Override
     public Iterator getIterator() {
