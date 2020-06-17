@@ -23,7 +23,7 @@ public class LibreriaGrande extends Libreria {
     }
     
     private LibreriaGrande(String nombre) {
-        super(nombre, 5);
+        super(nombre, 8);
     }
     
 }

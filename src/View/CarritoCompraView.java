@@ -1,6 +1,8 @@
 package View;
 
+import Model.CarritoCompras.CarritoCompras;
 import Model.CentroComercial.CentroComercial;
+import Model.Cliente.Cliente;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -13,14 +15,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author VICTOR
  */
-public class CarritoCompra extends javax.swing.JFrame {
+public class CarritoCompraView extends javax.swing.JFrame {
 
-    private CentroComercial centroComercial;
+    private CarritoCompras carritoCompras;
+    private Cliente cliente;
+    private CentroComercialView centroComercialView;
+    
     /**
      * Creates new form MenuPrincipal
      */
-    public CarritoCompra() {
-        this.centroComercial = new CentroComercial("Comercial FMAT");
+    public CarritoCompraView(CarritoCompras carritoCompras, Cliente cliente, CentroComercialView centroComercialView) {
+        this.carritoCompras = carritoCompras;
+        this.cliente = cliente;
+        this.centroComercialView = centroComercialView;
+        
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -207,45 +215,7 @@ public class CarritoCompra extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         this.selectedRowIndex = jTable1.getSelectedRow();
     }//GEN-LAST:event_jTable1MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CarritoCompra().setVisible(true);
-            }
-        });
-    }
-    
+  
     private int selectedRowIndex = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

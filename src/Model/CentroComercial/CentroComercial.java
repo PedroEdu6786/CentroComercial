@@ -7,6 +7,7 @@ package Model.CentroComercial;
 
 import Model.CarritoCompras.CarritoCompras;
 import Model.Cliente.Cliente;
+import Model.Tienda.Tienda;
 import Patrones.Iterator.ClientesRepository;
 import Patrones.Iterator.Iterator;
 import Patrones.Iterator.TiendasRepository;
@@ -38,6 +39,14 @@ public class CentroComercial implements Observadores {
         clientes.removeCliente(cliente);
     }
     
+    public void addTienda(Tienda tienda) {
+        getTiendas().addTienda(tienda);
+    }
+    
+    public void removeTienda(Tienda tienda) {
+        getTiendas().removeTienda(tienda);
+    }
+    
     public CarritoCompras getCarrito() {
         return new CarritoCompras();
     }
@@ -47,11 +56,15 @@ public class CentroComercial implements Observadores {
     }
     
     public Iterator getTiendasIterator() {
-        return tiendas.getIterator();
+        return getTiendas().getIterator();
     }
     
     public Iterator getClientesIterator(){
         return clientes.getIterator();
+    }
+    
+    public TiendasRepository getTiendas() {
+        return tiendas;
     }
     
     public void pagar() {
@@ -65,10 +78,9 @@ public class CentroComercial implements Observadores {
         while (clientesIterator.hasNext()) {
             Cliente clienteANotificar = (Cliente) clientesIterator.next();
             Date objDate = new Date();
-            System.out.println(objDate);
             String strDateFormat = "hh: mm: ss a dd-MMM-aaaa"; 
             SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-            clienteANotificar.addNotificacion("*La tienda " + tiendaActualizada + " ha agregado nuevos artículos. " + objSDF.format(objDate));
+            clienteANotificar.addNotificacion("*" + tiendaActualizada + " ha agregado un nuevo producto. " + objSDF.format(objDate));
         }
     }
 

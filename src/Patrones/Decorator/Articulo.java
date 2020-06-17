@@ -15,10 +15,9 @@ public class Articulo implements Vendible {
     private String identificadorTienda;
     private double precio;
 
-    public Articulo(String nombre, String identificador, String identificadorTienda, double precio) {
+    public Articulo(String nombre, String identificador, double precio) {
         this.nombre = nombre;
         this.identificador = identificador;
-        this.identificadorTienda = identificadorTienda;
         this.precio = precio;
     }
     

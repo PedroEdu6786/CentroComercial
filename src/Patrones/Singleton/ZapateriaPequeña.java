@@ -23,7 +23,7 @@ public class ZapateriaPequeña extends Zapateria {
     }
     
     private ZapateriaPequeña(String nombre) {
-        super(nombre, 3);
+        super(nombre, 5);
     }
     
 }

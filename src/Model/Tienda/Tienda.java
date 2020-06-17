@@ -20,6 +20,8 @@ import Patrones.Iterator.ArticulosRepository;
 import Patrones.Iterator.ClientesRepository;
 import Patrones.Iterator.Iterator;
 import Patrones.Iterator.PaquetesRepository;
+import Patrones.Observer.Observado;
+import Patrones.Observer.Observadores;
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public abstract class Tienda {
     private ArticulosRepository articulos;
     private ClientesRepository clientes;
     private PaquetesRepository paquetes;
+    public Observado observado;
 
     public Tienda(String nombre, String identificador, int cantidadMaximaArticulos) {
         this.nombre = nombre;
@@ -42,6 +45,7 @@ public abstract class Tienda {
         articulos = new ArticulosRepository(cantidadMaximaArticulos);
         clientes = new ClientesRepository();
         paquetes = new PaquetesRepository(cantidadMaximaArticulos);
+        observado = new Observado();
     }
 
     public String getNombre() {
@@ -95,7 +99,7 @@ public abstract class Tienda {
     public abstract void entrar(Cliente cliente);
 
     public abstract void salir(Cliente cliente);
-    
+
     public void addArticuloACarrito(CarritoCompras carritoCompras, Articulo articulo) throws ListaArticulosLlenaException {
         carritoCompras.addArticulo(articulo);
     }
@@ -105,23 +109,26 @@ public abstract class Tienda {
     }
 
     public void addPaqueteACarrito(CarritoCompras carritoCompras, Paquete paquete) throws ListaPaquetesLlenaException {
+
         carritoCompras.addPaquete(paquete);
     }
 
     public void removePaqueteDeCarrito(CarritoCompras carritoCompras, Paquete paquete) throws ListaPaquetesVaciaException, PaqueteNoEncontradoException {
         carritoCompras.removePaquete(paquete);
     }
-    
+
     public void addCliente(Cliente cliente) {
         clientes.addCliente(cliente);
     }
-    
+
     public void removeCliente(Cliente cliente) {
         clientes.removeCliente(cliente);
     }
 
     public void addArticulo(Articulo articulo) throws ListaArticulosLlenaException {
+        articulo.setIdentificadorTienda(nombre);
         articulos.addArticulo(articulo);
+        observado.notificarTodos(nombre);
     }
 
     public void removeArticulo(Articulo articulo) throws ListaArticulosVaciaException, ArticuloNoEncontradoException {
@@ -129,22 +136,38 @@ public abstract class Tienda {
     }
 
     public void addPaquete(Paquete paquete) throws ListaPaquetesLlenaException {
+        paquete.setIdentificadorTienda(nombre);
         paquetes.addPaquete(paquete);
+        observado.notificarTodos(nombre);
     }
-    
+
     public void removePaquete(Paquete paquete) throws ListaPaquetesVaciaException, PaqueteNoEncontradoException {
         paquetes.removePaquete(paquete);
     }
 
     public Paquete crearPaquete(List<Articulo> articulos, double descuento) {
-        Articulo articulo = articulos.get(0);
-        Vendible paquete = new Articulo(articulo.getNombre(), articulo.getIdentificador(), articulo.getIdentificadorTienda(), articulo.getPrecio() * (1 - .25));
-        
-        for (int i = 1; i < articulos.size(); i++) {
-            paquete = new Paquete(paquete, articulos.get(i), descuento);
+
+        Vendible paquete = null;
+
+        if (!articulos.isEmpty()) {
+            for (int i = 0; i < articulos.size(); i++) {
+                if (i == 0) {
+                    paquete = new Articulo(articulos.get(i).getNombre(), articulos.get(i).getIdentificador(), articulos.get(i).getPrecio() * (1 - .25));
+                } else {
+                    paquete = new Paquete(paquete, articulos.get(i), descuento);
+                }
+            }
         }
-        
+
         return (Paquete) paquete;
     }
-    
+
+    public void addObservador(Observadores observador) {
+        observado.adicionarObservador(observador);
+    }
+
+    public void removeObservador(Observadores observador) {
+        observado.eliminarObservador(observador);
+    }
+
 }

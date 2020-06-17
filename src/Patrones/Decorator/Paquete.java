@@ -13,6 +13,7 @@ public class Paquete extends ArticuloDecorator {
 
     private Vendible articuloAgregado;
     private double descuento;
+    private String identificadorTienda;
     
     public Paquete(Vendible paquete, Vendible articuloAgregado, double descuento) {
         super(paquete);
@@ -44,6 +45,14 @@ public class Paquete extends ArticuloDecorator {
 
     public void setDescuento(double descuento) {
         this.descuento = descuento;
+    }
+
+    public String getIdentificadorTienda() {
+        return identificadorTienda;
+    }
+
+    public void setIdentificadorTienda(String identificadorTienda) {
+        this.identificadorTienda = identificadorTienda;
     }
     
 }
