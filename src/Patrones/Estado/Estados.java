@@ -5,8 +5,10 @@
  */
 package Patrones.Estado;
 
+import Excepciones.CarritoLlenoException;
+import Excepciones.CarritoVacioException;
+import Model.CarritoCompras.CarritoCompras;
 import Patrones.Decorator.Articulo;
-import Patrones.Iterator.ArticulosRepository;
 
 /**
  *
@@ -14,7 +16,7 @@ import Patrones.Iterator.ArticulosRepository;
  */
 public interface Estados {
     
-    public abstract void removeArticulo(ArticulosRepository repository, Articulo articulo);
-    public abstract void addArticulo(ArticulosRepository repository, Articulo articulo);
+    public abstract void removeArticulo(CarritoCompras carritoCompras, Articulo articulo) throws CarritoVacioException;
+    public abstract void addArticulo(CarritoCompras carritoCompras, Articulo articulo) throws CarritoLlenoException;
     
 }

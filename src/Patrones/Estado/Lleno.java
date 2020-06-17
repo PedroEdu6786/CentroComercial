@@ -6,10 +6,8 @@
 package Patrones.Estado;
 
 import Excepciones.CarritoLlenoException;
+import Model.CarritoCompras.CarritoCompras;
 import Patrones.Decorator.Articulo;
-import Patrones.Iterator.ArticulosRepository;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,13 +16,14 @@ import java.util.logging.Logger;
 public class Lleno implements Estados {
 
     @Override
-    public void removeArticulo(ArticulosRepository repository, Articulo articulo) {
-        repository.removeArticulo(articulo);
+    public void removeArticulo(CarritoCompras carritoCompras, Articulo articulo) {
+        carritoCompras.getArticulos().removeArticulo(articulo);
+        carritoCompras.setEstadoActual(new ConArticulos());
     }
 
     @Override
-    public void addArticulo(ArticulosRepository repository, Articulo articulo) {
-        System.err.println("El carrito se encuentra lleno");
+    public void addArticulo(CarritoCompras carritoCompras, Articulo articulo) throws CarritoLlenoException {
+        throw new CarritoLlenoException();
     }
     
 }
