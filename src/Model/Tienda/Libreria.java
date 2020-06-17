@@ -19,12 +19,14 @@ public class Libreria extends Tienda{
 
     @Override
     public void entrar(Cliente cliente) {
-        
+        cliente.setTiendaActual(this);
+        addCliente(cliente);
     }
 
     @Override
     public void salir(Cliente cliente) {
-        
+        cliente.setTiendaActual(null);
+        removeCliente(cliente);
     }
     
 }
