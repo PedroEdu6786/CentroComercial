@@ -95,7 +95,7 @@ public abstract class Tienda {
     public abstract void entrar(Cliente cliente);
 
     public abstract void salir(Cliente cliente);
-
+    
     public void addArticuloACarrito(CarritoCompras carritoCompras, Articulo articulo) throws ListaArticulosLlenaException {
         carritoCompras.addArticulo(articulo);
     }
@@ -110,6 +110,14 @@ public abstract class Tienda {
 
     public void removePaqueteDeCarrito(CarritoCompras carritoCompras, Paquete paquete) throws ListaPaquetesVaciaException, PaqueteNoEncontradoException {
         carritoCompras.removePaquete(paquete);
+    }
+    
+    public void addCliente(Cliente cliente) {
+        clientes.addCliente(cliente);
+    }
+    
+    public void removeCliente(Cliente cliente) {
+        clientes.removeCliente(cliente);
     }
 
     public void addArticulo(Articulo articulo) throws ListaArticulosLlenaException {
