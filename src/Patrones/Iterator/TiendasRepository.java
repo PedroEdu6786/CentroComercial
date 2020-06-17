@@ -39,6 +39,14 @@ public class TiendasRepository implements Container {
         }
         
         counter--;
+        
+        Tienda[] newTiendas = new Tienda[tiendas.length - 1];
+        i = 0;
+        while(i < counter) {
+            newTiendas[i] = tiendas[i];
+            i++;
+        }
+        this.tiendas = newTiendas;
     }
     
     public int size() {

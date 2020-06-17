@@ -38,8 +38,15 @@ public class ClientesRepository implements Container{
             }
             i++;
         }
-        
         counter--;
+        
+        Cliente[] newClientes = new Cliente[clientes.length - 1];
+                i = 0;
+                while(i < counter) {
+                    newClientes[i] = clientes[i];
+                    i++;
+                }
+                this.clientes = newClientes;
     }
     
     public int size() {

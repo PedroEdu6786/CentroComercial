@@ -36,6 +36,7 @@ public class ArticulosRepository implements Container {
     
     public void removeArticulo(Articulo articulo) throws ListaArticulosVaciaException, ArticuloNoEncontradoException {
         
+        
         if (counter == 0) {
             throw new ListaArticulosVaciaException("Lista de articulos vacia");
         } else {
@@ -51,12 +52,19 @@ public class ArticulosRepository implements Container {
                     articulos[i] = articulos[i + 1];
                 }
                 i++;
-            }
-            
+            }                        
             if(!flag) {
                 throw new ArticuloNoEncontradoException("Articulo no encontrado");
             } else {
                 this.counter--;
+                
+                Articulo[] newArticulos = new Articulo[articulos.length - 1];
+                i = 0;
+                while(i < counter) {
+                    newArticulos[i] = articulos[i];
+                    i++;
+                }
+                this.articulos = newArticulos;
             }
         }
     }

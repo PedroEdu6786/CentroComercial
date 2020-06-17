@@ -113,10 +113,7 @@ public class TestIterator {
             System.out.println("Articulo: " + articulo.getNombre());
         }
         
-        carritoCompras.removeArticulo(zapato12);
         carritoCompras.removeArticulo(zapato1);
-        carritoCompras.removeArticulo(zapato9);
-        carritoCompras.removeArticulo(zapato10);
         
         iterator = carritoCompras.getArticulosIterator();
         

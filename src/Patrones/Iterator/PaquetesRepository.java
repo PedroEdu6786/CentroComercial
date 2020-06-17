@@ -55,9 +55,17 @@ public class PaquetesRepository implements Container{
             }
             
             if(!flag) {
-                throw new PaqueteNoEncontradoException("Articulo no encontrado");
+                throw new PaqueteNoEncontradoException("Paquete no encontrado");
             } else {
                 counter--;
+                
+                Paquete[] newPaquetes = new Paquete[paquetes.length - 1];
+                i = 0;
+                while(i < counter) {
+                    newPaquetes[i] = paquetes[i];
+                    i++;
+                }
+                this.paquetes = newPaquetes;
             }
         }
     }
