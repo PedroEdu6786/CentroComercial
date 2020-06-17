@@ -15,21 +15,21 @@ import Patrones.Decorator.Paquete;
  */
 public class PaquetesRepository implements Container{
 
-    private Paquete[] paquetess;
+    private Paquete[] paquetes;
     private final int maxLength;
     private int counter;
     
     public PaquetesRepository(int cantidadMaximaPaquetes) {
         this.counter = 0;
-        paquetess = new Paquete[cantidadMaximaPaquetes];
+        paquetes = new Paquete[cantidadMaximaPaquetes];
         maxLength = cantidadMaximaPaquetes;
     }
     
     public void addPaquete(Paquete paquetes) throws ListaPaquetesLlenaException {
         if (counter == maxLength) {
-            throw new ListaPaquetesLlenaException("Lista de paquetess llena");
+            throw new ListaPaquetesLlenaException("Lista de paquetes llena");
         } else {
-            paquetess[counter] = paquetes;
+            this.paquetes[counter] = paquetes;
             counter++;   
         }
     }
@@ -37,19 +37,20 @@ public class PaquetesRepository implements Container{
     public void removePaquete(Paquete paquetes) throws ListaPaquetesVaciaException {
         
         if (counter == 0) {
-            throw new ListaPaquetesVaciaException("Lista de paquetess vacia");
+            throw new ListaPaquetesVaciaException("Lista de paquetes vacia");
         } else {
             boolean flag = false;
             int i = 0;
 
-            while(i < paquetess.length && paquetess[i + 1] != null) {
-                if (paquetess[i].equals(paquetes)) {
+            while(i < this.paquetes.length && this.paquetes[i + 1] != null) {
+                if (this.paquetes[i].equals(paquetes)) {
                     flag = true;
                 }
                 if (flag) {
-                    paquetess[i] = paquetess[i + 1];
+                    this.paquetes[i] = this.paquetes[i + 1];
                 }
             }
+
             counter--;
         }
     }
@@ -60,7 +61,7 @@ public class PaquetesRepository implements Container{
 
     @Override
     public Iterator getIterator() {
-        return new PaquetesIterator(paquetess);
+        return new PaquetesIterator(paquetes);
     }
     
 }
