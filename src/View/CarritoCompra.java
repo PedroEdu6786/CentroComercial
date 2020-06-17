@@ -1,7 +1,6 @@
 package View;
 
 import Model.CentroComercial.CentroComercial;
-import Patrones.Iterator.Iterator;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -14,13 +13,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author VICTOR
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class CarritoCompra extends javax.swing.JFrame {
 
     private CentroComercial centroComercial;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal() {
+    public CarritoCompra() {
         this.centroComercial = new CentroComercial("Comercial FMAT");
         initComponents();
         this.setLocationRelativeTo(null);
@@ -162,7 +161,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 670, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,14 +198,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (selectedRowIndex != -1) {
-            Iterator tiendas = centroComercial.getTiendas();
-            Tienda tienda;
-            int counter = 0;
-            while(tiendas.hasNext() && counter < selectedRowIndex) {
-                tienda = (Tienda) tiendas.next();
-            }
-            //new Tienda().setVisible(true);
-            this.dispose();
+            
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -233,21 +225,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarritoCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                new CarritoCompra().setVisible(true);
             }
         });
     }

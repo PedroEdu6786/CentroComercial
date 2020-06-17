@@ -19,12 +19,12 @@ public class Libreria extends Tienda{
 
     @Override
     public void entrar(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void salir(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }
