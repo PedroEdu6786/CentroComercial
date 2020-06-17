@@ -498,7 +498,8 @@ public class CentroComercialView extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarCarritoComprasButtonActionPerformed
 
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
-        // TODO add your handling code here:
+        centroComercial.salir(cliente);
+        System.exit(0);
     }//GEN-LAST:event_salirButtonActionPerformed
 
     /**
