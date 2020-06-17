@@ -1,4 +1,8 @@
 
+import Model.Tienda.Libreria;
+import Model.Tienda.Tienda;
+import Patrones.AbstractFactory.FactorySucursal;
+import Patrones.AbstractFactory.FactorySucursalGrande;
 import Patrones.Decorator.Articulo;
 import Patrones.Decorator.ArticuloDecorator;
 import Patrones.Decorator.Paquete;
@@ -17,13 +21,18 @@ import Patrones.Decorator.Vendible;
 public class Test {
 
     public static void main(String[] args) {
-        Articulo primerArticulo = new Articulo("Air Force One", "NIKE", "NIKEGRANDE", 10);
+        /*Articulo primerArticulo = new Articulo("Air Force One", "NIKE", "NIKEGRANDE", 10);
         Vendible paquete = new Articulo(primerArticulo.getNombre(), primerArticulo.getIdentificador(), primerArticulo.getIdentificadorTienda(), primerArticulo.getPrecio() * (1 - .25));
         
         paquete = new Paquete(paquete, new Articulo("Air Force Two", "NIKE", "NIKEGRANDE", 20), .25);
         paquete = new Paquete(paquete, new Articulo("Air Force Three", "NIKE", "NIKEGRANDE", 70), .25);
         System.out.println("Paquete: " + paquete.getNombre());
-        System.out.println("Precio con descuento: " + paquete.getPrecio());
+        System.out.println("Precio con descuento: " + paquete.getPrecio());*/
+        
+        FactorySucursal factory = new FactorySucursalGrande();
+        Libreria libreriaPequeña = factory.createLibreria();
+        libreriaPequeña.setNombre("Libreria \"Los 20 hermanos\"");
+        
     }
     
 }
