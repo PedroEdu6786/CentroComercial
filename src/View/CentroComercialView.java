@@ -249,7 +249,7 @@ public class CentroComercialView extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(252, 86, 50));
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jLabel3.setText("Carrito de Compras");
+        jLabel3.setText("Carrito de compras");
 
         solicitarCarritoComprasButton.setText("Solicitar carrito de compras");
         solicitarCarritoComprasButton.addActionListener(new java.awt.event.ActionListener() {
@@ -446,7 +446,8 @@ public class CentroComercialView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pagarCarritoComprasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarCarritoComprasButtonActionPerformed
-        // TODO add your handling code here:
+        new CarritoComprasView(cliente, this).setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_pagarCarritoComprasButtonActionPerformed
 
     private void ingresarTiendaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarTiendaButtonActionPerformed
