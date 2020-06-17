@@ -35,7 +35,7 @@ public abstract class Tienda {
         this.cantidadMaximaArticulos = cantidadMaximaArticulos;
         articulos = new ArticulosRepository(cantidadMaximaArticulos);
         clientes = new ClientesRepository();
-        paquetes = new PaquetesRepository();
+        paquetes = new PaquetesRepository(cantidadMaximaArticulos);
     }
 
     public String getNombre() {
