@@ -400,10 +400,6 @@ public class CarritoComprasView extends javax.swing.JFrame {
             i++;
         }
         
-        System.out.println("      ");
-        System.out.println("      ");
-        System.out.println("      ");
-
         articulosTable.setModel(new javax.swing.table.DefaultTableModel(
                 tabla,
                 new String[]{
