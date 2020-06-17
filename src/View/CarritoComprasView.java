@@ -393,11 +393,16 @@ public class CarritoComprasView extends javax.swing.JFrame {
         int i = 0;
         while (articulosIterator.hasNext()) {
             Articulo articulo = (Articulo) articulosIterator.next();
+            System.out.println(articulo.getNombre());
             tabla[i][0] = articulo.getNombre();
             tabla[i][1] = articulo.getIdentificadorTienda();
             tabla[i][2] = "$" + articulo.getPrecio();
             i++;
         }
+        
+        System.out.println("      ");
+        System.out.println("      ");
+        System.out.println("      ");
 
         articulosTable.setModel(new javax.swing.table.DefaultTableModel(
                 tabla,

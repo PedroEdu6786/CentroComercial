@@ -481,6 +481,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         cliente.setCarritoCompras(centroComercial.getCarrito());
         pagarCarritoComprasButton.setEnabled(true);
         eliminarCarritoComprasButton.setEnabled(true);
+        solicitarCarritoComprasButton.setEnabled(false);
         if (tiendaSeleccionadaIndex >= 0) {
             ingresarTiendaButton.setEnabled(true);
         } else {
@@ -493,6 +494,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         pagarCarritoComprasButton.setEnabled(false);
         eliminarCarritoComprasButton.setEnabled(false);
         ingresarTiendaButton.setEnabled(false);
+        solicitarCarritoComprasButton.setEnabled(true);
     }//GEN-LAST:event_eliminarCarritoComprasButtonActionPerformed
 
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
