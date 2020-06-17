@@ -257,7 +257,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (selectedRowIndex != -1) {
-            Iterator tiendas = centroComercial.getTiendas();
+            Iterator tiendas = centroComercial.getTiendasIterator();
             Tienda tienda;
             int counter = 0;
             while(tiendas.hasNext() && counter < selectedRowIndex) {
