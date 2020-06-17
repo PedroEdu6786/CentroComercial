@@ -212,14 +212,14 @@ public class TiendaView extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(añadirArticuloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(eliminarArticuloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(eliminarArticuloButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(regresarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(añadirPaqueteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(eliminarPaqueteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(eliminarPaqueteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(instruccionesLabel)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -328,6 +328,7 @@ public class TiendaView extends javax.swing.JFrame {
             if (counter == paqueteSeleccionadoIndex) {
                 try {
                     tienda.addPaqueteACarrito(cliente.getCarritoCompras(), paquete);
+                    JOptionPane.showMessageDialog(null, "*El paquete ha sido añadido al carrito con éxito.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ListaPaquetesLlenaException ex) {
                     JOptionPane.showMessageDialog(null, "El carrito de compras está lleno (capacidad máxima: 25 productos).", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -346,6 +347,7 @@ public class TiendaView extends javax.swing.JFrame {
             if (counter == paqueteSeleccionadoIndex) {
                 try {
                     tienda.removePaqueteDeCarrito(cliente.getCarritoCompras(), paquete);
+                    JOptionPane.showMessageDialog(null, "*El paquete ha sido eliminado del carrito con éxito.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ListaPaquetesVaciaException | PaqueteNoEncontradoException ex) {
                     JOptionPane.showMessageDialog(null, "El carrito está vacío o el paquete no se encuentra en él.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -364,6 +366,7 @@ public class TiendaView extends javax.swing.JFrame {
             if (counter == articuloSeleccionadoIndex) {
                 try {
                     tienda.removeArticuloDeCarrito(cliente.getCarritoCompras(), articulo);
+                    JOptionPane.showMessageDialog(null, "*El articulo ha sido eliminado del carrito con éxito.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ListaArticulosVaciaException | ArticuloNoEncontradoException ex) {
                     JOptionPane.showMessageDialog(null, "El carrito está vacío o el artículo no se encuentra en él.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -382,6 +385,7 @@ public class TiendaView extends javax.swing.JFrame {
             if (counter == articuloSeleccionadoIndex) {
                 try {
                     tienda.addArticuloACarrito(cliente.getCarritoCompras(), articulo);
+                    JOptionPane.showMessageDialog(null, "*El articulo ha sido añadido al carrito con éxito.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ListaArticulosLlenaException ex) {
                     JOptionPane.showMessageDialog(null, "El carrito de compras está lleno (capacidad máxima: 25 productos).", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
                 }
