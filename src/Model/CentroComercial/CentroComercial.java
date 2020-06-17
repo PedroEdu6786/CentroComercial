@@ -42,11 +42,15 @@ public class CentroComercial implements Observadores {
         return new CarritoCompras();
     }
     
-    public Iterator getTiendas() {
+    public void cancelarCarrito(Cliente cliente) {
+        cliente.setCarritoCompras(null);
+    }
+    
+    public Iterator getTiendasIterator() {
         return tiendas.getIterator();
     }
     
-    public Iterator getClientes(){
+    public Iterator getClientesIterator(){
         return clientes.getIterator();
     }
     

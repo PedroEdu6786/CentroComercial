@@ -5,6 +5,7 @@
  */
 package Model.Cliente;
 
+import Model.CarritoCompras.CarritoCompras;
 import Model.Tienda.Tienda;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Cliente {
     private String nombre;
-    //falta CarritoCompras carritoCompras;
+    private CarritoCompras carritoCompras;
     private Tienda tiendaActual;
     private ArrayList<String> notificaciones = new ArrayList<>();
     
@@ -36,6 +37,22 @@ public class Cliente {
     }
     
     public void addNotificacion(String notificacion) {
-        notificaciones.add(notificacion);
+        getNotificaciones().add(notificacion);
+    }
+
+    public CarritoCompras getCarritoCompras() {
+        return carritoCompras;
+    }
+
+    public void setCarritoCompras(CarritoCompras carritoCompras) {
+        this.carritoCompras = carritoCompras;
+    }
+
+    public ArrayList<String> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(ArrayList<String> notificaciones) {
+        this.notificaciones = notificaciones;
     }
 }

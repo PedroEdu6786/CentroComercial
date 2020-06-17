@@ -26,4 +26,5 @@ public class LibreriaPequeña extends Libreria {
         super(nombre, 3);
     }
     
+    
 }
