@@ -5,6 +5,7 @@
  */
 package Patrones.Iterator;
 
+import Excepciones.ArticuloNoEncontradoException;
 import Excepciones.ListaArticulosLlenaException;
 import Excepciones.ListaArticulosVaciaException;
 import Patrones.Decorator.Articulo;
@@ -33,7 +34,7 @@ public class ArticulosRepository implements Container {
         }
     }
     
-    public void removeArticulo(Articulo articulo) throws ListaArticulosVaciaException {
+    public void removeArticulo(Articulo articulo) throws ListaArticulosVaciaException, ArticuloNoEncontradoException {
         
         if (counter == 0) {
             throw new ListaArticulosVaciaException("Lista de articulos vacia");
@@ -49,8 +50,12 @@ public class ArticulosRepository implements Container {
                     articulos[i] = articulos[i + 1];
                 }
             }
-
-            counter--;
+            
+            if(!flag) {
+                throw new ArticuloNoEncontradoException("Articulo no encontrado");
+            } else {
+                counter--;
+            }
         }
     }
     

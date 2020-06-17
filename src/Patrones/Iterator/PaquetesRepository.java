@@ -7,6 +7,7 @@ package Patrones.Iterator;
 
 import Excepciones.ListaPaquetesLlenaException;
 import Excepciones.ListaPaquetesVaciaException;
+import Excepciones.PaqueteNoEncontradoException;
 import Patrones.Decorator.Paquete;
 
 /**
@@ -34,7 +35,7 @@ public class PaquetesRepository implements Container{
         }
     }
     
-    public void removePaquete(Paquete paquetes) throws ListaPaquetesVaciaException {
+    public void removePaquete(Paquete paquetes) throws ListaPaquetesVaciaException, PaqueteNoEncontradoException {
         
         if (counter == 0) {
             throw new ListaPaquetesVaciaException("Lista de paquetes vacia");
@@ -50,8 +51,12 @@ public class PaquetesRepository implements Container{
                     this.paquetes[i] = this.paquetes[i + 1];
                 }
             }
-
-            counter--;
+            
+            if(!flag) {
+                throw new PaqueteNoEncontradoException("Articulo no encontrado");
+            } else {
+                counter--;
+            }
         }
     }
     
