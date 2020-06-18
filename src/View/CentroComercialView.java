@@ -99,7 +99,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         Zapateria zapateria = factorySucursal.createZapateria();
         Libreria libreria = factorySucursal.createLibreria();
 
-        zapateria.setNombre("Zapateria Impuls");
+        zapateria.setNombre("Zapatería Impuls");
         zapateria.addObservador(centroComercial);
         try {
             zapateria.addArticulo(zapato1);
