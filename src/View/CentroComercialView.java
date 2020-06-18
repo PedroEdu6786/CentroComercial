@@ -309,7 +309,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         nombreClienteLabel.setText("Has ingresado como:");
 
         instruccionesLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        instruccionesLabel.setText("Seleccione una tienda y presione el botón \"Ingresar a Tienda\":");
+        instruccionesLabel.setText("Seleccione una tienda y presione el botón \"Ingresar a tienda\":");
 
         salirButton.setText("Salir");
         salirButton.addActionListener(new java.awt.event.ActionListener() {
