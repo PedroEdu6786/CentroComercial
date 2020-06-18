@@ -1,6 +1,6 @@
 # CentroComercial
 
-Simulation of a mall applying different desifn patterns
+Simulation of a mall applying different design patterns
 
 ## Team Members
 
