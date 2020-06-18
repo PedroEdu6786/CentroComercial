@@ -13,7 +13,7 @@ import Model.Tienda.Libreria;
  */
 public class LibreriaGrande extends Libreria {
     
-    public static LibreriaGrande libreriaGrande;
+    private static LibreriaGrande libreriaGrande;
     
     public static LibreriaGrande getLibreriaGrande() {
         if (libreriaGrande == null) {

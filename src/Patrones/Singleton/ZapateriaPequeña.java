@@ -13,7 +13,7 @@ import Model.Tienda.Zapateria;
  */
 public class ZapateriaPequeña extends Zapateria {
     
-    public static ZapateriaPequeña zapateriaPequeña;
+    private static ZapateriaPequeña zapateriaPequeña;
     
     public static ZapateriaPequeña getZapateriaPequeña() {
         if (zapateriaPequeña == null) {
