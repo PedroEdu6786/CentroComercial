@@ -77,10 +77,11 @@ public class TestIterator {
         */
         
         CarritoCompras carritoCompras = new CarritoCompras();
+        System.out.println("Estado1: " + carritoCompras.getEstadoActual().getClass().getName());
         
         Articulo zapato1 = new Articulo("Vandana 857", "612203", 750);
         Articulo zapato2 = new Articulo("Flexi 402801", "629581", 900);
-        Articulo zapato3 = new Articulo("CUSTOM STYLE 5017", "633896", 545);
+        /*Articulo zapato3 = new Articulo("CUSTOM STYLE 5017", "633896", 545);
         Articulo zapato4 = new Articulo("CHRISTIAN GALLERY 2116", "374723", 1220);
         Articulo zapato5 = new Articulo("Vertical 5193", "374722", 1400);
         Articulo zapato6 = new Articulo("Nike Air Max 90", "837231", 2899);
@@ -90,10 +91,11 @@ public class TestIterator {
         Articulo zapato10 = new Articulo("Nike Blazer Low Leather", "437242", 1799);
         Articulo zapato11 = new Articulo("Nike CruzrOne", "437241", 2999);
         Articulo zapato12 = new Articulo("Air Jordan XXXIV Low", "423142", 13499);
-        Articulo zapato13 = new Articulo("Jordan Break", "453422", 799);
+        Articulo zapato13 = new Articulo("Jordan Break", "453422", 799);*/
         
         carritoCompras.addArticulo(zapato1);
-        carritoCompras.addArticulo(zapato2);
+        System.out.println("Estado2: " + carritoCompras.getEstadoActual().getClass().getName());
+        /*carritoCompras.addArticulo(zapato2);
         carritoCompras.addArticulo(zapato3);
         carritoCompras.addArticulo(zapato4);
         carritoCompras.addArticulo(zapato5);
@@ -104,7 +106,7 @@ public class TestIterator {
         carritoCompras.addArticulo(zapato10);
         carritoCompras.addArticulo(zapato11);
         carritoCompras.addArticulo(zapato12);
-        carritoCompras.addArticulo(zapato13);
+        carritoCompras.addArticulo(zapato13);*/
         
         Iterator iterator = carritoCompras.getArticulosIterator();
         
@@ -114,13 +116,22 @@ public class TestIterator {
         }
         
         try {
-            carritoCompras.removeArticulo(new Articulo("Jofefregak", "4regegr2", 7343499));
+            carritoCompras.removeArticulo(zapato2);
         } catch(ArticuloNoEncontradoException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Articulo no encontrado");
+        } catch(ListaArticulosVaciaException  e) {
+            System.err.println("Lista articulos vacia");
         }
+        System.out.println("Estado3: " + carritoCompras.getEstadoActual().getClass().getName());
         
-        carritoCompras.removeArticulo(zapato3);
-
+        try {
+            carritoCompras.removeArticulo(zapato1);
+        } catch(ArticuloNoEncontradoException e) {
+            System.err.println("Articulo no encontrado");
+        } catch(ListaArticulosVaciaException  e) {
+            System.err.println("Lista articulos vacia");
+        }
+        System.out.println("Estado4: " + carritoCompras.getEstadoActual().getClass().getName());
         
         iterator = carritoCompras.getArticulosIterator();
         

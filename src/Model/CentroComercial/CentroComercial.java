@@ -8,6 +8,7 @@ package Model.CentroComercial;
 import Model.CarritoCompras.CarritoCompras;
 import Model.Cliente.Cliente;
 import Model.Tienda.Tienda;
+import Patrones.AbstractFactory.FactorySucursal;
 import Patrones.Iterator.ClientesRepository;
 import Patrones.Iterator.Iterator;
 import Patrones.Iterator.TiendasRepository;
@@ -24,11 +25,12 @@ public class CentroComercial implements Observadores {
     private String nombre;
     private TiendasRepository tiendas;
     private ClientesRepository clientes;
-
+    
     public CentroComercial(String nombre) {
         this.nombre = nombre;
         tiendas = new TiendasRepository();
         clientes = new ClientesRepository();
+        
     }
 
     public void entrar(Cliente cliente) {
@@ -86,6 +88,14 @@ public class CentroComercial implements Observadores {
             SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
             clienteANotificar.addNotificacion("*" + tiendaActualizada + " ha agregado un nuevo producto. " + objSDF.format(objDate));
         }
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 }
