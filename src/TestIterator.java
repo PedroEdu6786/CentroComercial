@@ -113,7 +113,14 @@ public class TestIterator {
             System.out.println("Articulo: " + articulo.getNombre());
         }
         
-        carritoCompras.removeArticulo(zapato1);
+        try {
+            carritoCompras.removeArticulo(new Articulo("Jofefregak", "4regegr2", 7343499));
+        } catch(ArticuloNoEncontradoException e) {
+            System.err.println(e.getMessage());
+        }
+        
+        carritoCompras.removeArticulo(zapato3);
+
         
         iterator = carritoCompras.getArticulosIterator();
         
