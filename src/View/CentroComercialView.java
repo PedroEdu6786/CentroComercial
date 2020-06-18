@@ -241,6 +241,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         nombreCentroComercialLabel.setBackground(new java.awt.Color(252, 86, 50));
         nombreCentroComercialLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
         nombreCentroComercialLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nombreCentroComercialLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreCentroComercialLabel.setText("Centro FMAT");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -248,10 +249,7 @@ public class CentroComercialView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(nombreCentroComercialLabel)
-                .addGap(254, 254, 254))
+            .addComponent(nombreCentroComercialLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
