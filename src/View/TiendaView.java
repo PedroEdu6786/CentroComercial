@@ -404,7 +404,7 @@ public class TiendaView extends javax.swing.JFrame {
         while (articulosIterator.hasNext()) {
             Articulo articulo = (Articulo) articulosIterator.next();
             tabla[i][0] = articulo.getNombre();
-            tabla[i][1] = "$" + articulo.getPrecio();
+            tabla[i][1] = "$" + String.format("%.2f", articulo.getPrecio());
             i++;
         }
 
@@ -423,7 +423,7 @@ public class TiendaView extends javax.swing.JFrame {
         while (paquetesIterator.hasNext()) {
             Paquete paquete = (Paquete) paquetesIterator.next();
             tabla[i][0] = paquete.getNombre();
-            tabla[i][1] = "$" + paquete.getPrecio();
+            tabla[i][1] = "$" + String.format("%.2f", paquete.getPrecio());
             i++;
         }
 

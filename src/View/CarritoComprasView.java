@@ -383,7 +383,7 @@ public class CarritoComprasView extends javax.swing.JFrame {
             totalAPagar += paquete.getPrecio();
         }
         
-        totalAPagarLabel.setText("Total a pagar: $" + totalAPagar);
+        totalAPagarLabel.setText("Total a pagar: $" + String.format("%.2f", totalAPagar));
     }
     
     public void mostrarArticulos() {
@@ -395,7 +395,7 @@ public class CarritoComprasView extends javax.swing.JFrame {
             Articulo articulo = (Articulo) articulosIterator.next();
             tabla[i][0] = articulo.getNombre();
             tabla[i][1] = articulo.getIdentificadorTienda();
-            tabla[i][2] = "$" + articulo.getPrecio();
+            tabla[i][2] = "$" + String.format("%.2f", articulo.getPrecio());
             i++;
         }
         
@@ -415,7 +415,7 @@ public class CarritoComprasView extends javax.swing.JFrame {
             Paquete paquete = (Paquete) paquetesIterator.next();
             tabla[i][0] = paquete.getNombre();
             tabla[i][1] = paquete.getIdentificadorTienda();
-            tabla[i][2] = "$" + paquete.getPrecio();
+            tabla[i][2] = "$" + String.format("%.2f", paquete.getPrecio());
             i++;
         }
 
