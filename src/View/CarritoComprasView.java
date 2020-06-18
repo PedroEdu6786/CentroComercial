@@ -31,6 +31,8 @@ public class CarritoComprasView extends javax.swing.JFrame {
      * Creates new form MenuPrincipal
      */
     public CarritoComprasView(Cliente cliente, CentroComercialView centroComercialView) {
+        this.setResizable(false);
+        
         this.cliente = cliente;
         this.centroComercialView = centroComercialView;
 
