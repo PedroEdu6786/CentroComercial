@@ -1,6 +1,6 @@
 # CentroComercial
 
-Proyecto de centro comercial aplicando distintos patrones de diseño
+Simulation of a mall applying different desifn patterns
 
 ## Team Members
 
@@ -12,15 +12,15 @@ Proyecto de centro comercial aplicando distintos patrones de diseño
 
 CentroComercial View
 
-(./VistasImg/CentroComercial.png)
+![alt CentroComercial](./VistasImg/CentroComercial.png)
 
 Tienda View
 
-(./VistasImg/Tienda.png)
+![alt Tienda](./VistasImg/Tienda.png)
 
 CarritoCompra View
 
-(./VistasImg/CarritoCompra.png)
+![alt CarritoCompra](./VistasImg/CarritoCompra.png)
 
 ## Project Setup
 
