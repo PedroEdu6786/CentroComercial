@@ -71,7 +71,7 @@ public class CentroComercial implements Observadores {
         Date objDate = new Date();
         String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
         SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-        cliente.addNotificacion("*La compra se ha realizado con éxito. " + objSDF.format(objDate));
+        cliente.addNotificacion("*Has realizado una compra con éxito. " + objSDF.format(objDate));
         cancelarCarrito(cliente);
     }
 

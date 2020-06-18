@@ -356,7 +356,8 @@ public class CarritoComprasView extends javax.swing.JFrame {
 
     private void realizarPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarPagoButtonActionPerformed
         centroComercialView.getCentroComercial().pagar(cliente);
-        JOptionPane.showMessageDialog(null, "*La compra se está llevando a cabo.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        centroComercialView.mostrarNotificaciones();
+        JOptionPane.showMessageDialog(null, "*Compra realizada.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         dispose();
         centroComercialView.setVisible(true);
     }//GEN-LAST:event_realizarPagoButtonActionPerformed
