@@ -8,6 +8,20 @@ Proyecto de centro comercial aplicando distintos patrones de diseño
 * Canto Vázquez Rafael
 * Cruz de la Fuente Pedro
 
+## Project Views
+
+CentroComercial View
+
+(./VistasImg/CentroComercial.png)
+
+Tienda View
+
+(./VistasImg/Tienda.png)
+
+CarritoCompra View
+
+(./VistasImg/CarritoCompra.png)
+
 ## Project Setup
 
 Make sure to install the latest version of java into your computer and you are ready to go
