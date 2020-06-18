@@ -24,51 +24,55 @@ public class CentroComercial implements Observadores {
     private String nombre;
     private TiendasRepository tiendas;
     private ClientesRepository clientes;
-    
+
     public CentroComercial(String nombre) {
         this.nombre = nombre;
         tiendas = new TiendasRepository();
         clientes = new ClientesRepository();
     }
-    
+
     public void entrar(Cliente cliente) {
         clientes.addCliente(cliente);
     }
-    
+
     public void salir(Cliente cliente) {
         clientes.removeCliente(cliente);
     }
-    
+
     public void addTienda(Tienda tienda) {
         getTiendas().addTienda(tienda);
     }
-    
+
     public void removeTienda(Tienda tienda) {
         getTiendas().removeTienda(tienda);
     }
-    
+
     public CarritoCompras getCarrito() {
         return new CarritoCompras();
     }
-    
+
     public void cancelarCarrito(Cliente cliente) {
         cliente.setCarritoCompras(null);
     }
-    
+
     public Iterator getTiendasIterator() {
         return getTiendas().getIterator();
     }
-    
-    public Iterator getClientesIterator(){
+
+    public Iterator getClientesIterator() {
         return clientes.getIterator();
     }
-    
+
     public TiendasRepository getTiendas() {
         return tiendas;
     }
-    
-    public void pagar() {
-        
+
+    public void pagar(Cliente cliente) {
+        Date objDate = new Date();
+        String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+        SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+        cliente.addNotificacion("*La compra se ha realizado con éxito. " + objSDF.format(objDate));
+        cancelarCarrito(cliente);
     }
 
     @Override
@@ -78,7 +82,7 @@ public class CentroComercial implements Observadores {
         while (clientesIterator.hasNext()) {
             Cliente clienteANotificar = (Cliente) clientesIterator.next();
             Date objDate = new Date();
-            String strDateFormat = "hh: mm: ss a dd-MMM-aaaa"; 
+            String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
             SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
             clienteANotificar.addNotificacion("*" + tiendaActualizada + " ha agregado un nuevo producto. " + objSDF.format(objDate));
         }

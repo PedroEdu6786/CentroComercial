@@ -540,6 +540,10 @@ public class CentroComercialView extends javax.swing.JFrame {
         });
     }
 
+    public CentroComercial getCentroComercial() {
+        return centroComercial;
+    }
+    
     public void mostrarTiendas() {
         String tabla[][] = new String[centroComercial.getTiendas().size()][1];
 
@@ -563,8 +567,10 @@ public class CentroComercialView extends javax.swing.JFrame {
 
         ArrayList<String> notificaciones = cliente.getNotificaciones();
 
-        for (int i = 0; i < notificaciones.size(); i++) {
-            tabla[i][0] = notificaciones.get(i);
+        int j = 0;
+        for (int i = notificaciones.size() - 1; i >= 0; i--) {
+            tabla[j][0] = notificaciones.get(i);
+            j++;
         }
 
         notificacionesTable.setModel(new javax.swing.table.DefaultTableModel(
