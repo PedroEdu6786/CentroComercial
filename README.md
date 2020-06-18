@@ -10,15 +10,15 @@ Simulation of a mall applying different desifn patterns
 
 ## Project Views
 
-CentroComercial View
+### CentroComercial View
 
 ![alt CentroComercial](./VistasImg/CentroComercial.png)
 
-Tienda View
+### Tienda View
 
 ![alt Tienda](./VistasImg/Tienda.png)
 
-CarritoCompra View
+### CarritoCompra View
 
 ![alt CarritoCompra](./VistasImg/CarritoCompra.png)
 
