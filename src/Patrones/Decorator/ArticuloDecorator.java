@@ -10,7 +10,7 @@ package Patrones.Decorator;
  * @author rafa_
  */
 public class ArticuloDecorator implements Vendible {
-    public Vendible vendible;
+    private Vendible vendible;
 
     public ArticuloDecorator(Vendible vendible) {
         setVendible(vendible);
