@@ -32,6 +32,8 @@ public class TiendaView extends javax.swing.JFrame {
      * Creates new form MenuPrincipal
      */
     public TiendaView(Tienda tienda, Cliente cliente, CentroComercialView centroComercialView) {
+        this.setResizable(false);
+        
         this.tienda = tienda;
         this.cliente = cliente;
         this.centroComercialView = centroComercialView;
