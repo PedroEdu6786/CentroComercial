@@ -359,6 +359,10 @@ public class CarritoComprasView extends javax.swing.JFrame {
         centroComercialView.mostrarNotificaciones();
         JOptionPane.showMessageDialog(null, "*Compra realizada.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         dispose();
+        centroComercialView.solicitarCarritoComprasButton.setEnabled(true);
+        centroComercialView.pagarCarritoComprasButton.setEnabled(false);
+        centroComercialView.eliminarCarritoComprasButton.setEnabled(false);
+        centroComercialView.ingresarTiendaButton.setEnabled(false);
         centroComercialView.setVisible(true);
     }//GEN-LAST:event_realizarPagoButtonActionPerformed
 
